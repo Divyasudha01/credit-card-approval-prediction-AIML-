@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Credit Card Approval Prediction System</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">💳 Credit Card Approval Predictor</div>
+    <div class="badge">Model: {{ model_name }} · {{ accuracy }}% accuracy</div>
+  </nav>
+
+  <header class="hero">
+    <h1>Instant Credit Card Approval Predictions</h1>
+    <p>Enter an applicant's financial and demographic profile below. Our machine
+       learning model — trained on Logistic Regression, Decision Tree, Random
+       Forest, and XGBoost, with the best performer selected automatically —
+       will predict whether the application is likely to be approved or rejected.</p>
+  </header>
+
+  <main class="form-card">
+    <form action="/predict" method="POST">
+      <div class="grid">
+
+        <div class="field">
+          <label>Gender</label>
+          <select name="Gender" required>
+            {% for opt in encoders['Gender'] %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Age (years)</label>
+          <input type="number" name="Age_Years" min="18" max="100" step="1" value="35" required>
+        </div>
+
+        <div class="field">
+          <label>Own a Car?</label>
+          <select name="Own_Car" required>
+            {% for opt in encoders['Own_Car'] %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Own Real Estate?</label>
+          <select name="Own_Realty" required>
+            {% for opt in encoders['Own_Realty'] %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Number of Children</label>
+          <input type="number" name="Children_Count" min="0" max="10" step="1" value="0" required>
+        </div>
+
+        <div class="field">
+          <label>Family Members (total)</label>
+          <input type="number" name="Family_Members" min="1" max="15" step="1" value="2" required>
+        </div>
+
+        <div class="field">
+          <label>Annual Income ($)</label>
+          <input type="number" name="Annual_Income" min="0" step="100" value="55000" required>
+        </div>
+
+        <div class="field">
+          <label>Income Type</label>
+          <select name="Income_Type" required>
+            {% for opt in encoders['Income_Type'] %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Education Level</label>
+          <select name="Education_Level" required>
+            {% for opt in encoders['Education_Level'] %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Family Status</label>
+          <select name="Family_Status" required>
+            {% for opt in encoders['Family_Status'] %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Housing Type</label>
+          <select name="Housing_Type" required>
+            {% for opt in encoders['Housing_Type'] %}<option value="{{ opt }}">{{ opt }}</option>{% endfor %}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Employment Duration (years)</label>
+          <input type="number" name="Employment_Years" min="0" max="50" step="0.1" value="3" required>
+        </div>
+
+        <div class="field">
+          <label>Months Overdue on Past Payments</label>
+          <input type="number" name="Overdue_Months" min="0" max="24" step="1" value="0" required>
+        </div>
+
+        <div class="field">
+          <label>Has Work Phone?</label>
+          <select name="Has_Work_Phone" required>
+            <option value="1">Yes</option>
+            <option value="0" selected>No</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Has Phone?</label>
+          <select name="Has_Phone" required>
+            <option value="1" selected>Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Has Email?</label>
+          <select name="Has_Email" required>
+            <option value="1">Yes</option>
+            <option value="0" selected>No</option>
+          </select>
+        </div>
+
+      </div>
+
+      <button type="submit" class="submit-btn">Predict Approval</button>
+    </form>
+  </main>
+
+  <footer>Credit Card Approval Prediction System · Flask + Scikit-Learn/XGBoost</footer>
+</body>
+</html>

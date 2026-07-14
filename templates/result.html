@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Prediction Result</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="brand">💳 Credit Card Approval Predictor</div>
+  </nav>
+
+  <main class="result-card {{ 'rejected' if result.is_rejected else 'approved' }}">
+    <h1>{{ '❌ Application Rejected' if result.is_rejected else '✅ Application Approved' }}</h1>
+    <p class="confidence">Model confidence: <strong>{{ result.confidence }}%</strong> ({{ result.model_name }})</p>
+
+    <table class="summary-table">
+      <tr><th>Gender</th><td>{{ inputs.Gender }}</td></tr>
+      <tr><th>Age</th><td>{{ inputs.Age_Years }}</td></tr>
+      <tr><th>Annual Income</th><td>${{ '{:,.0f}'.format(inputs.Annual_Income) }}</td></tr>
+      <tr><th>Income Type</th><td>{{ inputs.Income_Type }}</td></tr>
+      <tr><th>Education Level</th><td>{{ inputs.Education_Level }}</td></tr>
+      <tr><th>Family Status</th><td>{{ inputs.Family_Status }}</td></tr>
+      <tr><th>Housing Type</th><td>{{ inputs.Housing_Type }}</td></tr>
+      <tr><th>Employment Duration</th><td>{{ inputs.Employment_Years }} years</td></tr>
+      <tr><th>Overdue Months</th><td>{{ inputs.Overdue_Months }}</td></tr>
+      <tr><th>Own Car / Realty</th><td>{{ inputs.Own_Car }} / {{ inputs.Own_Realty }}</td></tr>
+    </table>
+
+    <a href="/" class="submit-btn back-btn">← Try Another Application</a>
+  </main>
+
+  <footer>Credit Card Approval Prediction System · Flask + Scikit-Learn/XGBoost</footer>
+</body>
+</html>
